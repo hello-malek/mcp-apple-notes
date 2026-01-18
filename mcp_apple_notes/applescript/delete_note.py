@@ -1,5 +1,5 @@
 
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT
 
 
 class DeleteNoteOperations(BaseAppleScriptOperations):
@@ -39,15 +39,15 @@ class DeleteNoteOperations(BaseAppleScriptOperations):
 
         # Build full Core Data ID from primary key using dynamic store UUID
         # First get a sample note to extract the store UUID
-        script_get_uuid = """
+        script_get_uuid = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 set sampleNote to note 1 of primaryAccount
                 set sampleId to id of sampleNote as string
                 return sampleId
             on error errMsg
-                return "error:iCloud account not available. Please enable iCloud Notes sync - " & errMsg
+                return "error:Primary account not available - " & errMsg
             end try
         end tell
         """
@@ -66,7 +66,7 @@ class DeleteNoteOperations(BaseAppleScriptOperations):
         script = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 set targetNote to note id "{full_note_id}"
                 
                 set actualNoteName to name of targetNote as string

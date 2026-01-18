@@ -1,6 +1,6 @@
 from typing import Any
 
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT
 from .note_id_utils import NoteIDUtils
 from .validation_utils import ValidationUtils
 
@@ -71,7 +71,7 @@ class CreateFolderOperations(BaseAppleScriptOperations):
         script = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 set newFolder to make new folder with properties {{name:{escaped_name}}} at primaryAccount
                 set folderName to name of newFolder
                 set folderId to id of newFolder as string
@@ -160,7 +160,7 @@ class CreateFolderOperations(BaseAppleScriptOperations):
         script = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 {navigation_script}
                 set newFolder to make new folder with properties {{name:{escaped_name}}} at targetFolder
                 set folderName to name of newFolder

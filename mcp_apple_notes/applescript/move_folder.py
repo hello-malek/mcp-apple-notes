@@ -1,6 +1,6 @@
 from typing import Any
 
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT
 from .validation_utils import ValidationUtils
 
 
@@ -141,7 +141,7 @@ class MoveFolderOperations(BaseAppleScriptOperations):
         script = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 
                 if {escaped_source_path} is "" then
                     return "error:Cannot move folder to same location"
@@ -214,7 +214,7 @@ class MoveFolderOperations(BaseAppleScriptOperations):
         script = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 
                 -- Find source folder
                 set sourceFolder to missing value
@@ -381,7 +381,7 @@ class MoveFolderOperations(BaseAppleScriptOperations):
         script_get_uuid = """
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 set sampleFolder to folder 1 of primaryAccount
                 set sampleId to id of sampleFolder as string
                 return sampleId
@@ -413,7 +413,7 @@ class MoveFolderOperations(BaseAppleScriptOperations):
         script = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 set targetFolder to folder id "{full_folder_id}"
                 
                 set actualFolderName to name of targetFolder as string

@@ -1,4 +1,4 @@
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT
 from .note_id_utils import NoteIDUtils
 
 
@@ -8,13 +8,13 @@ class FolderStructureOperations(BaseAppleScriptOperations):
     @staticmethod
     async def get_folders_structure() -> str:
         """Get complete folder structure from primary account only - return raw AppleScript data."""
-        script = """
+        script = f"""
 tell application "Notes"
 	try
-		set folderList to {}
-		
+		set folderList to {{}}
+
 		-- Direct iCloud account access
-		set primaryAccount to account "iCloud"
+		set primaryAccount to account "{ICLOUD_ACCOUNT}"
 		
 		-- Get all root folders and their subfolders from iCloud account only
 		repeat with rootFolder in folders of primaryAccount

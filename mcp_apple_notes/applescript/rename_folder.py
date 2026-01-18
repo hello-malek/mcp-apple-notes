@@ -1,6 +1,6 @@
 from typing import Any
 
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT
 from .validation_utils import ValidationUtils
 
 
@@ -20,17 +20,17 @@ class RenameFolderOperations(BaseAppleScriptOperations):
         # Get all folder names in the target location
         if not folder_path:
             # Root level - check root folders
-            script = """
+            script = f"""
             tell application "Notes"
                 try
-                    set primaryAccount to account "iCloud"
-                    set folderNames to {}
+                    set primaryAccount to account "{ICLOUD_ACCOUNT}"
+                    set folderNames to {{}}
                     repeat with rootFolder in folders of primaryAccount
                         set end of folderNames to name of rootFolder
                     end repeat
                     return folderNames
                 on error errMsg
-                    return "error:iCloud account not available. Please enable iCloud Notes sync - " & errMsg
+                    return "error:Primary account not available - " & errMsg
                 end try
             end tell
             """
@@ -40,7 +40,7 @@ class RenameFolderOperations(BaseAppleScriptOperations):
             script = f"""
             tell application "Notes"
                 try
-                    set primaryAccount to account "iCloud"
+                    set primaryAccount to account "{ICLOUD_ACCOUNT}"
                     set currentFolder to missing value
                     set pathComponents to {{{", ".join([f'"{component}"' for component in path_components])}}}
                     
@@ -167,15 +167,15 @@ class RenameFolderOperations(BaseAppleScriptOperations):
 
         # Build full Core Data ID from primary key using dynamic store UUID
         # First get a sample folder to extract the store UUID
-        script_get_uuid = """
+        script_get_uuid = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 set sampleFolder to folder 1 of primaryAccount
                 set sampleId to id of sampleFolder as string
                 return sampleId
             on error errMsg
-                return "error:iCloud account not available. Please enable iCloud Notes sync - " & errMsg
+                return "error:Primary account not available - " & errMsg
             end try
         end tell
         """
@@ -204,7 +204,7 @@ class RenameFolderOperations(BaseAppleScriptOperations):
         script = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 set targetFolder to folder id "{full_folder_id}"
                 
                 set actualFolderName to name of targetFolder as string

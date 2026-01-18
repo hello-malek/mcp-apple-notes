@@ -1,5 +1,5 @@
 
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT
 from .note_id_utils import NoteIDUtils
 from .validation_utils import ValidationUtils
 
@@ -108,7 +108,7 @@ class CreateNoteOperations(BaseAppleScriptOperations):
         script = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 set currentFolder to missing value
                 set pathComponents to {{{", ".join([ValidationUtils.create_applescript_quoted_string(component) for component in path_components])}}}
                 

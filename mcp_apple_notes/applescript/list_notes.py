@@ -1,5 +1,5 @@
 
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT
 from .note_id_utils import NoteIDUtils
 
 
@@ -16,10 +16,10 @@ class ListNotesOperations(BaseAppleScriptOperations):
         Raises:
             RuntimeError: If AppleScript execution fails
         """
-        script = """
+        script = f"""
         tell application "Notes"
             set outputText to ""
-            set iCloudAccount to account "iCloud"
+            set iCloudAccount to account "{ICLOUD_ACCOUNT}"
             repeat with currentFolder in folders of iCloudAccount
                 repeat with currentNote in notes of currentFolder
                     set noteName to name of currentNote

@@ -2,7 +2,7 @@
 AppleScript operations for Apple Notes integration.
 """
 
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT, get_primary_account_name
 from .create_folder import CreateFolderOperations
 from .create_note import CreateNoteOperations
 from .delete_folder import DeleteFolderOperations
@@ -22,6 +22,8 @@ from .validation_utils import ValidationUtils
 
 __all__ = [
     "BaseAppleScriptOperations",
+    "ICLOUD_ACCOUNT",
+    "get_primary_account_name",
     "CreateNoteOperations",
     "CreateFolderOperations",
     "ReadNoteOperations",

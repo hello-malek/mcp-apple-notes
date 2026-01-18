@@ -1,6 +1,6 @@
 import subprocess
 
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT
 
 
 class SearchNotesOperations(BaseAppleScriptOperations):
@@ -24,7 +24,7 @@ class SearchNotesOperations(BaseAppleScriptOperations):
             script = f"""
             tell application "Notes"
                 try
-                    set primaryAccount to account "iCloud"
+                    set primaryAccount to account "{ICLOUD_ACCOUNT}"
                     set keywords to {{{keywords_str}}}
                     set foundNotes to {{}}
                     

@@ -1,5 +1,5 @@
 
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT
 
 
 class ValidationUtils(BaseAppleScriptOperations):
@@ -285,7 +285,7 @@ class ValidationUtils(BaseAppleScriptOperations):
             script = f"""
             tell application "Notes"
                 try
-                    set primaryAccount to account "iCloud"
+                    set primaryAccount to account "{ICLOUD_ACCOUNT}"
                     set currentFolder to missing value
                     set pathComponents to {{{", ".join([f'"{component}"' for component in path_components])}}}
                     
@@ -347,7 +347,7 @@ class ValidationUtils(BaseAppleScriptOperations):
             script = f"""
             tell application "Notes"
                 try
-                    set primaryAccount to account "iCloud"
+                    set primaryAccount to account "{ICLOUD_ACCOUNT}"
                     repeat with rootFolder in folders of primaryAccount
                         if name of rootFolder is "{folder_name}" then
                             return "exists"

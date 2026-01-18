@@ -1,5 +1,5 @@
 
-from .base_operations import BaseAppleScriptOperations
+from .base_operations import BaseAppleScriptOperations, ICLOUD_ACCOUNT
 from .validation_utils import ValidationUtils
 
 
@@ -72,7 +72,7 @@ class MoveNoteOperations(BaseAppleScriptOperations):
             script = f"""
             tell application "Notes"
                 try
-                    set primaryAccount to account "iCloud"
+                    set primaryAccount to account "{ICLOUD_ACCOUNT}"
                     repeat with rootFolder in folders of primaryAccount
                         repeat with noteItem in notes of rootFolder
                             set noteId to id of noteItem as string
@@ -94,7 +94,7 @@ class MoveNoteOperations(BaseAppleScriptOperations):
             script = f"""
             tell application "Notes"
                 try
-                    set primaryAccount to account "iCloud"
+                    set primaryAccount to account "{ICLOUD_ACCOUNT}"
                     set currentFolder to missing value
                     set pathComponents to {{{", ".join([ValidationUtils.create_applescript_quoted_string(component) for component in path_components])}}}
                     
@@ -154,7 +154,7 @@ class MoveNoteOperations(BaseAppleScriptOperations):
         script_get_uuid = """
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 set sampleNote to note 1 of primaryAccount
                 set sampleId to id of sampleNote as string
                 return sampleId
@@ -187,7 +187,7 @@ class MoveNoteOperations(BaseAppleScriptOperations):
         script = f"""
         tell application "Notes"
             try
-                set primaryAccount to account "iCloud"
+                set primaryAccount to account "{ICLOUD_ACCOUNT}"
                 set targetNote to note id {escaped_full_note_id}
                 
                 set actualNoteName to name of targetNote as string
@@ -273,7 +273,7 @@ class MoveNoteOperations(BaseAppleScriptOperations):
             script = f"""
             tell application "Notes"
                 try
-                    set primaryAccount to account "iCloud"
+                    set primaryAccount to account "{ICLOUD_ACCOUNT}"
                     repeat with rootFolder in folders of primaryAccount
                         repeat with noteItem in notes of rootFolder
                             set noteId to id of noteItem as string
@@ -295,7 +295,7 @@ class MoveNoteOperations(BaseAppleScriptOperations):
             script = f"""
             tell application "Notes"
                 try
-                    set primaryAccount to account "iCloud"
+                    set primaryAccount to account "{ICLOUD_ACCOUNT}"
                     set currentFolder to missing value
                     set pathComponents to {{{", ".join([ValidationUtils.create_applescript_quoted_string(component) for component in path_components])}}}
                     
